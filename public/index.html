@@ -28,24 +28,21 @@
 
     <!--add jquery library fior search-->
     <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> -->
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
     
     <title>React App</title>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <h2 style="color: green;"> 
-      GeeksforGeeks 
+  <h2 style="color: rgb(19, 0, 128);"> 
+      SillyNFTier
   </h2> 
   <h3> 
-      fetch only sections of specific HTML  
-      areas from an external page using AJAX 
+      fetch data from a wikipedia page using Fetch (javascript) to build an API
   </h3> 
-  <button onclick="event_occur()"> 
+  <button onclick="get_my_data()"> 
       Click Here 
-  </button><br></br> 
-  <h3>External.html page</h3> 
+  </button>
   <div id="display" 
        style="border: 1px solid black;  
               width:max-content;  
@@ -54,25 +51,8 @@
   </div>  
 
   <script> 
-      event_occur = async () => { 
-
-
-        // let url = "https://api.wikimedia.org/core/v1/wikipedia/en/page/Harvard_university";
-        // let url1 = "https://api.wikimedia.org/w/rest.php/v1/page/Harvard_university";
-       
-        // await fetch(url)
-
-    //     //       'Access-Control-Allow-Origin': '*'
-    //     //   },})
-    //     //  {
-    // method: 'POST',    
-    // headers: {
-        
-    //     'Access-Control-Allow-Origin': '*'
-    // },})
-   
-  // })
-
+      get_my_data = async () => { 
+  
   var url = 'https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=Harvard%20University';
   var url1 = "https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=St._Joseph's_University_(New_York)";
 
@@ -94,7 +74,7 @@ fetch(url1)
     for (let z = 0; z < list.length; z++) {listHTML=listHTML+ list[z].innerHTML; console.log(list[z].childNodes[0].textContent ,": ",list[z].childNodes[1]);
 let listOfKeys= ["Students", "Location","Sporting affiliations"];
     if (list[z].childNodes[0].textContent=== "Students" ) {let studentArray = list[z].nextSibling.textContent; console.log("studentArray:",studentArray); let innertextKey = list[z].childNodes[0].textContent; let innertextValue = list[z].childNodes[1].textContent; let newItem={}; Object.defineProperty(newItem, innertextKey, {value:innertextValue}); console.log(newItem);  valueArray.push(newItem);}
-    if (list[z].childNodes[0].textContent=== "Location" ) {let locationArray = list[z].childNodes[0].nextSibling.firstChild.children; console.log(locationArray); if (locationArray.length > 1) {Array.from(locationArray).forEach((loc) => {if (loc.localName === "a") {console.log(loc.title)}})} else {console.log(list[z].childNodes[0].nextSibling.firstChild.children[0].title); 
+    if (list[z].childNodes[0].textContent=== "Location" ) {let locationArray = list[z].childNodes[0].nextSibling.firstChild.children; console.log("locationArray:",locationArray); if (locationArray.length > 1) {let locationList = []; Array.from(locationArray).forEach((loc) => {if (loc.localName === "a") {locationList.push(loc.title); console.log(loc.title)}}) ; let innertextKey = list[z].childNodes[0].textContent; let innertextValue = locationList; let newItem={}; Object.defineProperty(newItem, innertextKey, {value:innertextValue}); console.log(newItem); valueArray.push(newItem); } else {console.log(list[z].childNodes[0].nextSibling.firstChild.children[0].title); 
      let innertextKey = list[z].childNodes[0].textContent; let innertextValue = list[z].childNodes[0].nextSibling.firstChild.children[0].title; let newItem={}; Object.defineProperty(newItem, innertextKey, {value:innertextValue}); console.log(newItem); valueArray.push(newItem); }
   }
     document.getElementById("display").innerHTML = listHTML;
