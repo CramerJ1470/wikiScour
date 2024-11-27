@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+
+
+    <!--add jquery library fior search-->
+    <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <h2 style="color: green;"> 
+      GeeksforGeeks 
+  </h2> 
+  <h3> 
+      fetch only sections of specific HTML  
+      areas from an external page using AJAX 
+  </h3> 
+  <button onclick="event_occur()"> 
+      Click Here 
+  </button><br></br> 
+  <h3>External.html page</h3> 
+  <div id="display" 
+       style="border: 1px solid black;  
+              width:max-content;  
+              padding:0.5rem;"> 
+      fetched Content will display here. 
+  </div>  
+
+  <script> 
+      event_occur = async () => { 
+
+
+        // let url = "https://api.wikimedia.org/core/v1/wikipedia/en/page/Harvard_university";
+        // let url1 = "https://api.wikimedia.org/w/rest.php/v1/page/Harvard_university";
+       
+        // await fetch(url)
+
+    //     //       'Access-Control-Allow-Origin': '*'
+    //     //   },})
+    //     //  {
+    // method: 'POST',    
+    // headers: {
+        
+    //     'Access-Control-Allow-Origin': '*'
+    // },})
+   
+  // })
+
+  var url = 'https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=Harvard%20University';
+  var url1 = "https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=St._Joseph's_University_(New_York)";
+
+fetch(url1)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(response){
+    html_code = response["parse"]["text"]["*"];
+    parser = new DOMParser();
+    html = parser.parseFromString(html_code, "text/html");
+    var tables = html.querySelectorAll(".vcard");
+    let list =tables[0].children[1].children
+    console.log(list);
+    let listHTML ='';
+    console.log(list.length);
+    let valueArray = [];
+    let keyArray = [];
+    for (let z = 0; z < list.length; z++) {listHTML=listHTML+ list[z].innerHTML; console.log(list[z].childNodes[0].textContent ,": ",list[z].childNodes[1]);
+let listOfKeys= ["Students", "Location","Sporting affiliations"];
+    if (list[z].childNodes[0].textContent=== "Students" ) {let studentArray = list[z].nextSibling.textContent; console.log("studentArray:",studentArray); let innertextKey = list[z].childNodes[0].textContent; let innertextValue = list[z].childNodes[1].textContent; let newItem={}; Object.defineProperty(newItem, innertextKey, {value:innertextValue}); console.log(newItem);  valueArray.push(newItem);}
+    if (list[z].childNodes[0].textContent=== "Location" ) {let locationArray = list[z].childNodes[0].nextSibling.firstChild.children; console.log(locationArray); if (locationArray.length > 1) {Array.from(locationArray).forEach((loc) => {if (loc.localName === "a") {console.log(loc.title)}})} else {console.log(list[z].childNodes[0].nextSibling.firstChild.children[0].title); 
+     let innertextKey = list[z].childNodes[0].textContent; let innertextValue = list[z].childNodes[0].nextSibling.firstChild.children[0].title; let newItem={}; Object.defineProperty(newItem, innertextKey, {value:innertextValue}); console.log(newItem); valueArray.push(newItem); }
+  }
+    document.getElementById("display").innerHTML = listHTML;
+   
+    
+  }
+  console.log("valueArray:",valueArray);
+})
+
+
+      }
+  </script> 
+    <div id="root"></div>
+
+  </body>
+</html>
