@@ -85,6 +85,10 @@ if (listOfKeysLevel1.includes(list[z].childNodes[0].textContent)) {console.log(l
 
 if (listOfKeysLevel2.includes(list[z].childNodes[0].textContent)) {let formerNames =list[z].childNodes[1].innerHTML.toString().split("<br>"); let newItem={}; Object.defineProperty(newItem, list[z].childNodes[0].textContent, {value:formerNames}); console.log(list[z].childNodes[0].textContent,":",formerNames); valueArray.push(newItem);}
 
+if (listOfKeysLevel3.includes(list[z].childNodes[0].textContent)) {console.log(list[z].childNodes[0].nextSibling.children);let itemsArray = list[z].childNodes[0].nextSibling.children; console.log("itemsArray:",itemsArray); if (itemsArray.length > 1) {let itemsList = []; Array.from(itemsArray).forEach((loc) => {if (loc.localName === "a") {itemsList.push(loc.title); console.log(loc.title)}}) ; let innertextKey = list[z].childNodes[0].textContent; let innertextValue = itemsList; let newItem={}; Object.defineProperty(newItem, innertextKey, {value:innertextValue}); console.log(newItem); valueArray.push(newItem); } else {console.log(list[z].childNodes[0].children[0].title); 
+     let innertextKey = list[z].childNodes[0].textContent; let innertextValue = list[z].childNodes[0].children[0].title; let newItem={}; Object.defineProperty(newItem, innertextKey, {value:innertextValue}); console.log(newItem); valueArray.push(newItem); }
+  }
+
   
 
 
