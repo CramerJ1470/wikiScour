@@ -15,6 +15,12 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link
+			rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+			crossorigin="anonymous"
+		/>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -34,81 +40,23 @@
     <title>React App</title>
   </head>
   <body>
-  <h2 style="color: rgb(19, 0, 128);"> 
-      SillyNFTier
-  </h2> 
-  <h3> 
-      fetch data from a wikipedia page using Fetch (javascript) to build an API
-  </h3> 
-  <button onclick="get_my_data()"> 
-      Click Here 
-  </button>
-  <div id="display" 
-       style="border: 1px solid black;  
-              width:max-content;  
-              padding:0.5rem;"> 
-      fetched Content will display here. 
-  </div>  
-
-  <script> 
-      get_my_data = async () => { 
-  
-  var url = 'https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=Harvard%20University';
-  var url1 = "https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=St._Joseph's_University_(New_York)";
-
-fetch(url1)
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(response){
-    html_code = response["parse"]["text"]["*"];
-    parser = new DOMParser();
-    html = parser.parseFromString(html_code, "text/html");
-    var tables = html.querySelectorAll(".vcard");
-    let list =tables[0].children[1].children
-    console.log(list);
-    let listHTML ='';
-    console.log(list.length);
-    let valueArray = [];
-    let keyArray = [];
-    for (let z = 0; z < list.length; z++) {listHTML=listHTML+ list[z].innerHTML; console.log(list[z].childNodes[0].textContent ,": ",list[z].childNodes[1]);
-let listOfKeysLevel0= ["Established", "President","Religious affiliation","Academic staff","Campus"];
-let listOfKeysLevel1= ["Provost", "Website","Type","Dean"];
-let listOfKeysLevel2 = ["Former name","Motto","Nickname","Mascot"]; //more than one answer with a <br> between
-let listOfKeysLevel3 = ["Sporting affiliations"];
-
-//*********************items in 1st level of element ****************************//
-    if (listOfKeysLevel0.includes(list[z].childNodes[0].textContent)) {console.log(list[z].childNodes[0].textContent,":",list[z].childNodes[0].nextSibling.textContent);let newItem={}; Object.defineProperty(newItem, list[z].childNodes[0].textContent, {value:list[z].childNodes[0].nextSibling.textContent});valueArray.push(newItem);}
-
-//*********************items in 1st level of element ****************************//
-if (listOfKeysLevel1.includes(list[z].childNodes[0].textContent)) {console.log(list[z].childNodes[0].textContent,":",list[z].children[1].innerText);let newItem={}; Object.defineProperty(newItem, list[z].childNodes[0].textContent, {value:list[z].children[1].innerText});valueArray.push(newItem);}
-
-if (listOfKeysLevel2.includes(list[z].childNodes[0].textContent)) {let formerNames =list[z].childNodes[1].innerHTML.toString().split("<br>"); let newItem={}; Object.defineProperty(newItem, list[z].childNodes[0].textContent, {value:formerNames}); console.log(list[z].childNodes[0].textContent,":",formerNames); valueArray.push(newItem);}
-
-if (listOfKeysLevel3.includes(list[z].childNodes[0].textContent)) {console.log(list[z].childNodes[0].nextSibling.children);let itemsArray = list[z].childNodes[0].nextSibling.children; console.log("itemsArray:",itemsArray); if (itemsArray.length > 1) {let itemsList = []; Array.from(itemsArray).forEach((loc) => {if (loc.localName === "a") {itemsList.push(loc.title); console.log(loc.title)}}) ; let innertextKey = list[z].childNodes[0].textContent; let innertextValue = itemsList; let newItem={}; Object.defineProperty(newItem, innertextKey, {value:innertextValue}); console.log(newItem); valueArray.push(newItem); } else {console.log(list[z].childNodes[0].children[0].title); 
-     let innertextKey = list[z].childNodes[0].textContent; let innertextValue = list[z].childNodes[0].children[0].title; let newItem={}; Object.defineProperty(newItem, innertextKey, {value:innertextValue}); console.log(newItem); valueArray.push(newItem); }
-  }
-
-  
-
-
-
-/// ****************************************       ***************************************//
-    if (list[z].childNodes[0].textContent=== "Students" ) {let studentArray = list[z].nextSibling.textContent; console.log("studentArray:",studentArray); let innertextKey = list[z].childNodes[0].textContent; let innertextValue = list[z].childNodes[1].textContent; let newItem={}; Object.defineProperty(newItem, innertextKey, {value:studentArray}); console.log(newItem);  valueArray.push(newItem);}
-    if (list[z].childNodes[0].textContent=== "Location" ) {let locationArray = list[z].childNodes[0].nextSibling.firstChild.children; console.log("locationArray:",locationArray); if (locationArray.length > 1) {let locationList = []; Array.from(locationArray).forEach((loc) => {if (loc.localName === "a") {locationList.push(loc.title); console.log(loc.title)}}) ; let innertextKey = list[z].childNodes[0].textContent; let innertextValue = locationList; let newItem={}; Object.defineProperty(newItem, innertextKey, {value:innertextValue}); console.log(newItem); valueArray.push(newItem); } else {console.log(list[z].childNodes[0].nextSibling.firstChild.children[0].title); 
-     let innertextKey = list[z].childNodes[0].textContent; let innertextValue = list[z].childNodes[0].nextSibling.firstChild.children[0].title; let newItem={}; Object.defineProperty(newItem, innertextKey, {value:innertextValue}); console.log(newItem); valueArray.push(newItem); }
-  }
-    document.getElementById("display").innerHTML = listHTML;
-   
-    
-  }
-  console.log("valueArray:",valueArray);
-})
-
-
-      }
-  </script> 
-    <div id="root"></div>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+		<div id="root" class="root"></div>
+		<script
+			src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+			crossorigin="anonymous"
+		></script>
 
   </body>
 </html>

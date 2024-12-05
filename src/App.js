@@ -1,16 +1,122 @@
-import logo from './logo.svg';
+
 import './App.css';
+import "./assets/workshop-styles.css";
+import Navigation from "./components/Navigation";
+import Footer from "./components/Footer";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Logout from "./components/Logout";
+import SchoolObjectDetails from "./components/SchoolObjectDetails";
+import SchoolObjectsHomePage from "./components/SchoolObjectsHomePage";
+import React, { useEffect, useState ,useContext} from "react";
+import { Routes, Route } from "react-router-dom";
+
+import AuthContext from "./context/AuthContext";
+import SchoolObjectsContext from "./context/SchoolObjectsContext";
+
+
+import { getSchoolObjects } from "./services";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
- 
-  
-      
-      </header>
-    </div>
-  );
+	const [schoolobjects, setSchoolObjects] = useState([]);
+	const [isAuth, setIsAuth] = useState();
+
+	useEffect(() => {
+		getSchoolObjects(setSchoolObjects);
+	}, []);
+
+	const updateSchoolObjects= () => {
+		getSchoolObjects(setSchoolObjects);
+	};
+
+
+	return (
+		<AuthContext.Provider value={{ isAuth: isAuth, setIsAuth }}>
+			<SchoolObjectsContext.Provider
+				value={{ schoolobjects: schoolobjects, setSchoolObjects, updateSchoolObjects }}
+			>
+				
+							<div className="App">
+							
+								<Routes>
+									<Route
+										path="/"
+										element={<Home schoolobjects={schoolobjects} />}
+									/>
+									<Route
+										path="/home"
+										element={<Home schoolobjects={schoolobjects} />}
+									/>
+									{!isAuth ? (
+										<>
+											<Route
+												path="/schoolobjects/:id"
+												element={
+													<SchoolObjectDetails
+														schoolobjects={schoolobjects}
+													/>
+												}
+											/>
+											<Route
+												path="/login"
+												element={<Login />}
+											/>
+											<Route
+												path="/register"
+												element={<Register />}
+											/>
+											<Route
+												path="/schoolobjects"
+												element={
+													<SchoolObjectsHomePage
+                          schoolobjects={schoolobjects}
+													/>
+												}
+											/>
+										</>
+									) : (
+										<>
+											<Route
+												path="/schoolobjects/:id"
+												element={
+													<SchoolObjectDetails
+														schoolobjects={schoolobjects}
+													/>
+												}
+											/>
+											<Route
+												path="/login"
+												element={<Login />}
+											/>
+											<Route
+												path="/register"
+												element={<Register />}
+											/>
+											<Route
+												path="/schoolobjects"
+												element={
+													<SchoolObjectsHomePage
+                          schoolobjects={schoolobjects}
+													/>
+												}
+											/>
+									
+											<Route
+												path="/logout"
+												element={<Logout />}
+											/>
+										</>
+									)}
+								</Routes>
+
+								<Footer />
+							</div>
+				
+			</SchoolObjectsContext.Provider>
+		</AuthContext.Provider>
+	);
 }
 
 export default App;

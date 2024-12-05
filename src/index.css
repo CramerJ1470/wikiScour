@@ -11,3 +11,151 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#display {
+  border: 1px solid black;  
+width:max-content;  
+padding:0.5rem;
+}
+
+#mainh2 {
+  color: rgb(19, 0, 128);
+  
+}
+
+.main {
+  padding-top: 10vh;
+	margin-top: 24vh;
+	text-align: center;
+	display: inline-block;
+  background-image: url(./assets/Campus_Panorama.jpg);
+}
+
+.sectionTop {
+  height: 100vh;
+  background-image: url(./assets/Campus_Panorama.jpg);
+}
+
+button ,a {
+  border-radius: 1vh;
+  margin: 2vh;
+  padding-left: 2vh;
+  padding-right: 2vh;
+  border-style: groove;
+  border-width: 2px;
+  box-shadow: 3px 2px 5px black;
+}
+
+.nicebutton {
+  text-align: center;
+  border-radius: 1vh;
+  border-style: groove;
+  padding-left: 2vh;
+  padding-right: 2vh;
+  color: rgb(111, 26, 117);
+	background-color: transparent;
+ 
+  
+}
+
+.dropdown-item {
+  border-style: groove;
+  border-color: black;
+  border-width: 2px;
+}
+
+
+.dropdown-menu {
+  background:none;
+  border:none;
+}
+
+
+.flexbox1 {
+  display: flex;
+
+}
+
+.flexbox1Elements {
+ padding-top: 5vh;
+ 
+}
+
+.flexbox1Elements2 {
+  text-align: left;
+  padding-top: 2vh;
+ 
+ }
+
+ div.container {
+  margin-left: 0%;
+  margin-right: 0%;
+
+ 
+ }
+
+ .wholeLoginPage {
+  text-align: center;
+
+ }
+
+ .wid33 {
+  width: 33%;
+ }
+
+ .col3 {
+  width: 100%;
+ }
+
+
+ .bg12 {
+  background-color: rgb(91, 111, 219);
+  border-radius: 2%;
+  padding: 5%;
+ }
+
+.container1 {
+  width: 100%;
+}
+
+svg {
+  background-color: transparent;
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 50px;
+}
+
+path {
+  fill: transparent;
+}
+
+text {
+  fill: rgb(91, 111, 219);
+  text-shadow: 2px 7px 7px black;
+}
+.body1 {
+  width: 100%;
+
+}
+
+.textshadow {
+  text-shadow: 2px 2px 5px white;
+}
+
+.buttonshadow {
+  box-shadow: 2px 3px 4px black;
+}
+
+.buttonshadow:hover {
+  background-color:rgb(91, 111, 219);
+  color: rgb(138, 240, 36);
+}
+
+.btnpad {
+  margin-top: 5vh;
+  padding: .40vw 2vh;
+}
+
+.textdark {
+  color:rgb(56, 38, 160);
+  text-shadow: 1px 1px 3px black;
+}

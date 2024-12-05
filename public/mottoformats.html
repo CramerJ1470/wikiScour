@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+const getlist = async () => {
+        let url2 = "file:///G:/JC/VS/practiceScouringWikipedia/wikiscour/public/dummy.html";
+        await fetch(url2)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(response){
+    html_code = response["parse"]["text"]["*"];
+    parser = new DOMParser();
+    html = parser.parseFromString(html_code, "text/html");
+    var tables = html.querySelectorAll("tr");
+        let list = tables.children
+      
+
+
+console.log("list: ", list);})
+  }
+    </script>
+    <h1> Motto formats</h1>
+
+    <tr >
+        <th scope="row" class="infobox-label" style="padding-right:0.65em;" id="mottoformats">Motto</th>
+        <button onclick="getlist()">click me</button>
+        <td class="infobox-data">
+            <style data-mw-deduplicate="TemplateStyles:r1126788409">.mw-parser-output .plainlist ol,.mw-parser-output .plainlist ul{line-height:inherit;list-style:none;margin:0;padding:0}.mw-parser-output .plainlist ol li,.mw-parser-output .plainlist ul li{margin-bottom:0}
+            </style>
+            <div class="plainlist">
+                <ul>
+                    <li>"Spartans Will."
+                        <sup id="cite_ref-1" class="reference">
+                            <a href="#cite_note-1">
+                                <span class="cite-bracket">[</span>1<span class="cite-bracket">]</span>
+                            </a>
+                        </sup>
+                        <sup id="cite_ref-2" class="reference">
+                            <a href="#cite_note-2">
+                                <span class="cite-bracket">[</span>2<span class="cite-bracket">]</span>
+                            </a>
+                        </sup>
+                    </li>
+                    <li>"Advancing Knowledge. Transforming Lives.
+                        <sup id="cite_ref-3" class="reference">
+                            <a href="#cite_note-3">
+                                <span class="cite-bracket">[</span>3<span class="cite-bracket">]</span>
+                            </a>
+                        </sup>
+                    </li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+
+</body>
+</html>
