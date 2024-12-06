@@ -5,6 +5,7 @@ import NextPage from "./NextPage";
 import DropdownLeft from "./DropdownLeft";
 import Navigation from "./Navigation";
 import Collegesearch from "./Collegesearch";
+
 import {addSchoolObject} from "../services";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useContext } from "react";
@@ -16,6 +17,9 @@ import { logout } from "../services";
 const Home = (schoolobjects) => {	
 	const navigate = useNavigate();
 	const { setIsAuth, isAuth } = useContext(AuthContext);
+
+	console.log(isAuth);
+	console.log(schoolobjects[256]);
 
 	const logoutHandler = async () => {
 		const res = await logout();
@@ -176,7 +180,10 @@ const Home = (schoolobjects) => {
 				  
 					};
 					}
-
+const samplePage = async() => {
+	setIsAuth(true);
+	navigate("/samplepage");
+}
 	  
 	  
 	  const stateHandler= async() => {
@@ -191,27 +198,27 @@ const Home = (schoolobjects) => {
     <>
 	<main className="sectionTop">
 		<h3 className="textshadow textdark">Fetch data from a wikipedia page using Fetch (javascript) to build an API (thank you Wikipedia!)</h3> 
-		<div class="container1">
+		<div className="container1">
 		<div className ="row col3"> 
 				
 				<div className="col">
 				<div className ="flexbox1Elements2">
 				{!isAuth ? (<>
-    						<a class="dropdown-item nicebutton wid33 buttonshadow"type="button" href="/register">Register</a>
-    						<a class="dropdown-item nicebutton wid33 buttonshadow" type="button" href="/login">Login</a>
+    						<a className="dropdown-item nicebutton wid33 buttonshadow"type="button" href="/register">Register</a>
+    						<a className="dropdown-item nicebutton wid33 buttonshadow" type="button" href="/login">Login</a>
 							</>
 				):(
-    						<button class="dropdown-item nicebutton wid33 buttonshadow" type="button" onClick={logoutHandler}>Logout</button>
+    						<button className="dropdown-item nicebutton wid33 buttonshadow" type="button" onClick={logoutHandler}>Logout</button>
 				)}
 					</div>
 					
       			</div>
 				 
-    			<div class="col">
+    			<div className="col">
 				
 				
 
-<div class="body1">
+<div className="body1">
 <svg viewBox="0 0 425 300">
   <path id="curve" d="M6,150C49.63,93,105.79,36.65,156.2,47.55,207.89,58.74,213,131.91,264,150c40.67,14.43,108.57-6.91,229-145" />
   <text   x="30">
@@ -228,7 +235,7 @@ const Home = (schoolobjects) => {
 			
 
 				 
-				<div class="col">
+				<div className="col">
 				
 					<div className="flexbox1Elements">
 					{!isAuth ? (<>
@@ -237,16 +244,19 @@ const Home = (schoolobjects) => {
 						</h3>
 						</>
 					):(<>
-     					<div class="dropdown show">
-  							<a class="buttonshadow nicebutton btnpad" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<button className="dropdown-item nicebutton buttonshadow" type="button" onClick={samplePage}>Sample Page</button>
+     					<div className="dropdown show">
+  							<a className="buttonshadow nicebutton btnpad" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
    								Get Data Menu
   							</a>
-							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    							<button class="dropdown-item nicebutton buttonshadow" id="stateListButton" type="button" onClick={get_my_data}>Get state List data</button>
-    							<button class="dropdown-item nicebutton buttonshadow "  id="collegesInfoButton" type="button" onClick={stateHandler}>Get Colleges Info</button>
-    							<button class="dropdown-item nicebutton buttonshadow" id="filtersForColleges" href="#">College Filters</button>
+							<div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    							<button className="dropdown-item nicebutton buttonshadow" id="stateListButton" type="button" onClick={get_my_data}>Get state List data</button>
+    							<button className="dropdown-item nicebutton buttonshadow "  id="collegesInfoButton" type="button" onClick={stateHandler}>Get Colleges Info</button>
+    							<button className="dropdown-item nicebutton buttonshadow" id="filtersForColleges" href="#">College Filters</button>
+								
   							</div>
 						</div>
+						
 						</>
 					)}
 					</div>
@@ -255,29 +265,29 @@ const Home = (schoolobjects) => {
 		</div>
 	    
         </div> 
-		<Collegesearch/>
+		
 		{/* <tr >
-        <th scope="row" class="infobox-label addedin" id="mottoformats">Motto</th>
+        <th scope="row" className="infobox-label addedin" id="mottoformats">Motto</th>
         <button onclick="getlist()">click me</button>
-        <td class="infobox-data">
-            <div class="plainlist">
+        <td className="infobox-data">
+            <div className="plainlist">
                 <ul>
                     <li>"Spartans Will."
-                        <sup id="cite_ref-1" class="reference">
+                        <sup id="cite_ref-1" className="reference">
                             <a href="#cite_note-1">
-                                <span class="cite-bracket">[</span>1<span class="cite-bracket">]</span>
+                                <span className="cite-bracket">[</span>1<span className="cite-bracket">]</span>
                             </a>
                         </sup>
-                        <sup id="cite_ref-2" class="reference">
+                        <sup id="cite_ref-2" className="reference">
                             <a href="#cite_note-2">
-                                <span class="cite-bracket">[</span>2<span class="cite-bracket">]</span>
+                                <span className="cite-bracket">[</span>2<span className="cite-bracket">]</span>
                             </a>
                         </sup>
                     </li>
                     <li>"Advancing Knowledge. Transforming Lives.
-                        <sup id="cite_ref-3" class="reference">
+                        <sup id="cite_ref-3" className="reference">
                             <a href="#cite_note-3">
-                                <span class="cite-bracket">[</span>3<span class="cite-bracket">]</span>
+                                <span className="cite-bracket">[</span>3<span className="cite-bracket">]</span>
                             </a>
                         </sup>
                     </li>

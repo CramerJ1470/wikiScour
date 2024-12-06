@@ -10,7 +10,7 @@ const schoolObjectSchema = new Schema({
 	},
 	location: {
 		type: String,
-		required: true,
+		required: false,
 	},
 	control: {
 		type: String,

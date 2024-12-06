@@ -11,17 +11,13 @@ import SchoolObjectDetails from "./components/SchoolObjectDetails";
 import SchoolObjectsHomePage from "./components/SchoolObjectsHomePage";
 import React, { useEffect, useState ,useContext} from "react";
 import { Routes, Route } from "react-router-dom";
-
+import { getSchoolObjects } from "./services";
 import AuthContext from "./context/AuthContext";
 import SchoolObjectsContext from "./context/SchoolObjectsContext";
 
-
-import { getSchoolObjects } from "./services";
-
-
 function App() {
 	const [schoolobjects, setSchoolObjects] = useState([]);
-	const [isAuth, setIsAuth] = useState();
+	const [isAuth, setIsAuth] = useState(false);
 
 	useEffect(() => {
 		getSchoolObjects(setSchoolObjects);
@@ -43,7 +39,8 @@ function App() {
 								<Routes>
 									<Route
 										path="/"
-										element={<Home schoolobjects={schoolobjects} />}
+										element={<Home schoolobjects={schoolobjects} 
+										 />}
 									/>
 									<Route
 										path="/home"
@@ -51,62 +48,15 @@ function App() {
 									/>
 									{!isAuth ? (
 										<>
-											<Route
-												path="/schoolobjects/:id"
-												element={
-													<SchoolObjectDetails
-														schoolobjects={schoolobjects}
-													/>
-												}
-											/>
-											<Route
-												path="/login"
-												element={<Login />}
-											/>
-											<Route
-												path="/register"
-												element={<Register />}
-											/>
-											<Route
-												path="/schoolobjects"
-												element={
-													<SchoolObjectsHomePage
-                          schoolobjects={schoolobjects}
-													/>
-												}
-											/>
+											<Route path="/login" element={<Login />}/>
+											<Route path="/register" element={<Register />}/>
 										</>
 									) : (
 										<>
-											<Route
-												path="/schoolobjects/:id"
-												element={
-													<SchoolObjectDetails
-														schoolobjects={schoolobjects}
-													/>
-												}
-											/>
-											<Route
-												path="/login"
-												element={<Login />}
-											/>
-											<Route
-												path="/register"
-												element={<Register />}
-											/>
-											<Route
-												path="/schoolobjects"
-												element={
-													<SchoolObjectsHomePage
-                          schoolobjects={schoolobjects}
-													/>
-												}
-											/>
-									
-											<Route
-												path="/logout"
-												element={<Logout />}
-											/>
+											<Route path="/logout" element={<Logout />}/>
+											<Route path="/schoolobjects/:id" element={<SchoolObjectDetails schoolobjects={schoolobjects}/>}/>
+											<Route path="/schoolobjectshomepage" element={<SchoolObjectsHomePage schoolobjects={schoolobjects}/>}/>
+											<Route path="/samplepage" element={<SchoolObjectDetails/>}/>
 										</>
 									)}
 								</Routes>

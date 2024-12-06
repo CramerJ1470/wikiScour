@@ -17,6 +17,7 @@ export const login = async (username, password, applyFunc) => {
 		);
 		console.log(`localStorage: `, localStorage);
 		applyFunc(true);
+	
 	} else {
 		applyFunc(false);
 	}

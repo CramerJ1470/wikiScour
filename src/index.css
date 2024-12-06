@@ -36,7 +36,7 @@ padding:0.5rem;
   background-image: url(./assets/Campus_Panorama.jpg);
 }
 
-button ,a {
+button  {
   border-radius: 1vh;
   margin: 2vh;
   padding-left: 2vh;
@@ -158,4 +158,125 @@ text {
 .textdark {
   color:rgb(56, 38, 160);
   text-shadow: 1px 1px 3px black;
+}
+
+.mw-parser-output .infobox-subbox {
+  padding:0;
+  border:none;
+  margin:-3px;
+  width:auto;
+  min-width:100%;
+  font-size:100%;
+  clear:none;
+  float:none;
+  background-color:transparent
+}
+.mw-parser-output .infobox-3cols-child {
+  margin:auto
+}
+.mw-parser-output .infobox .navbar {
+  font-size:100%
+}
+@media screen {
+  html.skin-theme-clientpref-night .mw-parser-output .infobox-full-data:not(.notheme)>div:not(.notheme)[style]
+  {background:#1f1f23!important;
+    color:#f8f9fa
+  }
+}
+@media screen and (prefers-color-scheme:dark){
+  html.skin-theme-clientpref-os .mw-parser-output .infobox-full-data:not(.notheme) div:not(.notheme){
+    background:#1f1f23!important;
+    color:#f8f9fa
+  }
+}
+@media(min-width:640px){
+  body.skin--responsive .mw-parser-output .infobox-table{
+    display:table!important
+  }
+  body.skin--responsive .mw-parser-output .infobox-table>caption{
+    display:table-caption!important
+  }
+  body.skin--responsive .mw-parser-output .infobox-table>tbody{
+    display:table-row-group
+  }
+  body.skin--responsive .mw-parser-output .infobox-table tr{
+    display:table-row!important
+  }
+  body.skin--responsive .mw-parser-output .infobox-table th,body.skin--responsive .mw-parser-output .infobox-table td{
+    padding-left:inherit;
+    padding-right:inherit
+  }
+}
+
+.mw-parser-output .hlist dl,.mw-parser-output .hlist ol,.mw-parser-output .hlist ul{
+  margin:0;
+  padding:0
+}
+.mw-parser-output .hlist dd,.mw-parser-output .hlist dt,.mw-parser-output .hlist li{
+  margin:0;
+  display:inline
+}
+.mw-parser-output .hlist.inline,.mw-parser-output .hlist.inline dl,.mw-parser-output .hlist.inline ol,.mw-parser-output .hlist.inline ul,.mw-parser-output .hlist dl dl,.mw-parser-output .hlist dl ol,.mw-parser-output .hlist dl ul,.mw-parser-output .hlist ol dl,.mw-parser-output .hlist ol ol,.mw-parser-output .hlist ol ul,.mw-parser-output .hlist ul dl,.mw-parser-output .hlist ul ol,.mw-parser-output .hlist ul ul{
+  display:inline
+}
+.mw-parser-output .hlist .mw-empty-li{
+  display:none
+}
+.mw-parser-output .hlist dt::after{
+  content:": "
+}
+.mw-parser-output .hlist dd::after,.mw-parser-output .hlist li::after{
+  content:" · ";
+  font-weight:bold
+}
+.mw-parser-output .hlist dd:last-child::after,.mw-parser-output .hlist dt:last-child::after,.mw-parser-output .hlist li:last-child::after{
+  content:none
+}
+.mw-parser-output .hlist dd dd:first-child::before,.mw-parser-output .hlist dd dt:first-child::before,.mw-parser-output .hlist dd li:first-child::before,.mw-parser-output .hlist dt dd:first-child::before,.mw-parser-output .hlist dt dt:first-child::before,.mw-parser-output .hlist dt li:first-child::before,.mw-parser-output .hlist li dd:first-child::before,.mw-parser-output .hlist li dt:first-child::before,.mw-parser-output .hlist li li:first-child::before{
+  content:" (";
+  font-weight:normal
+}
+.mw-parser-output .hlist dd dd:last-child::after,.mw-parser-output .hlist dd dt:last-child::after,.mw-parser-output .hlist dd li:last-child::after,.mw-parser-output .hlist dt dd:last-child::after,.mw-parser-output .hlist dt dt:last-child::after,.mw-parser-output .hlist dt li:last-child::after,.mw-parser-output .hlist li dd:last-child::after,.mw-parser-output .hlist li dt:last-child::after,.mw-parser-output .hlist li li:last-child::after{
+  content:")";
+  font-weight:normal
+}
+.mw-parser-output .hlist ol{
+  counter-reset:listitem
+}
+.mw-parser-output .hlist ol>li{
+  counter-increment:listitem
+}
+.mw-parser-output .hlist ol>li::before{
+  content:" "counter(listitem)"\a0 "
+}
+.mw-parser-output .hlist dd ol>li:first-child::before,.mw-parser-output .hlist dt ol>li:first-child::before,.mw-parser-output .hlist li ol>li:first-child::before{
+  content:" ("counter(listitem)"\a0 "
+}
+
+.mw-parser-output .geo-default,.mw-parser-output .geo-dms,.mw-parser-output .geo-dec{
+  display:inline
+}
+.mw-parser-output .geo-nondefault,.mw-parser-output .geo-multi-punct,.mw-parser-output .geo-inline-hidden{
+  display:none
+}
+.mw-parser-output .longitude,.mw-parser-output .latitude{
+  white-space:nowrap
+}
+
+.mw-parser-output .legend{
+  page-break-inside:avoid;break-inside:avoid-column
+}
+.mw-parser-output .legend-color{
+  display:inline-block;
+  min-width:1.25em;
+  height:1.25em;
+  line-height:1.25;
+  margin:1px 0;
+  text-align:center;
+  border:1px solid black;
+  background-color:transparent;
+  color:black
+}
+.mw-parser-output .legend-text{ background-image: url("");
+
 }

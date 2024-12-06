@@ -32,10 +32,7 @@ const Login = () => {
 
 	const submitHandler = (e) => {
 		e.preventDefault();
-		console.log(username, password);
 		login(username, password, setIsAuth);
-		localStorage.setItem("orders", "");
-		console.log(localStorage.orders);
 		navigate("/");
 	};
 
@@ -44,7 +41,7 @@ const Login = () => {
 		<section className="sectionTop">
 			
 		
-			<div class="container">
+			<div className="container">
 
 			
 				<div className ="row col3"> 
