@@ -1,10 +1,13 @@
 import React from "react";
 import "../assets/workshop-styles.css";
 import "../index.css";
+import "../styles.css";
+
 import NextPage from "./NextPage";
 import DropdownLeft from "./DropdownLeft";
 import Navigation from "./Navigation";
 import Collegesearch from "./Collegesearch";
+import SchoolBoxOnSearch from "./schoolBoxOnSearch";
 
 import {addSchoolObject} from "../services";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -95,7 +98,7 @@ const Home = (schoolobjects) => {
 			addSchoolObject(schoolObjectList[sol]);
 		  }
 		  }
-		  
+		  let list = [];  
 	
 		  const get_my_data= async ()=> { 
 			
@@ -116,8 +119,7 @@ const Home = (schoolobjects) => {
 			  let parser = new DOMParser();
 			  let html = parser.parseFromString(html_code, "text/html");
 			  var tables = html.querySelectorAll(".vcard");
-			  let list =tables[0].children[1].children
-			  console.log(list);
+			  let list =tables[0].children[1].children;
 			  let listHTML ='';
 			  console.log(list.length);
 			  let valueArray = [];
@@ -152,12 +154,12 @@ const Home = (schoolobjects) => {
 				locationArray); if (locationArray.length > 1) {let locationList = []; Array.from(locationArray).forEach((loc) => {if (loc.localName === "a") {locationList.push(loc.title); console.log(loc.title)}}) ; let innertextKey = list[z].childNodes[0].textContent; let innertextValue = locationList; let newItem={}; Object.defineProperty(newItem, innertextKey, {value:innertextValue}); console.log(newItem); valueArray.push(newItem); } else {console.log(list[z].childNodes[0].nextSibling.firstChild.children[0].title); 
 			   let innertextKey = list[z].childNodes[0].textContent; let innertextValue = list[z].childNodes[0].nextSibling.firstChild.children[0].title; let newItem={}; Object.defineProperty(newItem, innertextKey, {value:innertextValue}); console.log(newItem); valueArray.push(newItem); }
 			}
-			  document.getElementById("display").innerHTML = listHTML;
+			//   document.getElementById("display").innerHTML = listHTML;
 			 
 			  
 			}
 			console.log("valueArray:",valueArray);
-		  })
+		  });
 		  
 		  
 				}};
@@ -178,12 +180,12 @@ const Home = (schoolobjects) => {
 						  this.founded= founded;
 						  this.schoolLink = schoolLink;
 				  
-					};
+					}
 					}
 const samplePage = async() => {
 	setIsAuth(true);
 	navigate("/samplepage");
-}
+};
 	  
 	  
 	  const stateHandler= async() => {
@@ -196,7 +198,9 @@ const samplePage = async() => {
 
   return (
     <>
+	
 	<main className="sectionTop">
+	
 		<h3 className="textshadow textdark">Fetch data from a wikipedia page using Fetch (javascript) to build an API (thank you Wikipedia!)</h3> 
 		<div className="container1">
 		<div className ="row col3"> 
@@ -262,39 +266,17 @@ const samplePage = async() => {
 					</div>
     			
     		</div>
+			
+
 		</div>
-	    
+		<SchoolBoxOnSearch/>
+		<div style={{height:"80%"}}>
+		<Collegesearch/>
+		</div>
         </div> 
 		
-		{/* <tr >
-        <th scope="row" className="infobox-label addedin" id="mottoformats">Motto</th>
-        <button onclick="getlist()">click me</button>
-        <td className="infobox-data">
-            <div className="plainlist">
-                <ul>
-                    <li>"Spartans Will."
-                        <sup id="cite_ref-1" className="reference">
-                            <a href="#cite_note-1">
-                                <span className="cite-bracket">[</span>1<span className="cite-bracket">]</span>
-                            </a>
-                        </sup>
-                        <sup id="cite_ref-2" className="reference">
-                            <a href="#cite_note-2">
-                                <span className="cite-bracket">[</span>2<span className="cite-bracket">]</span>
-                            </a>
-                        </sup>
-                    </li>
-                    <li>"Advancing Knowledge. Transforming Lives.
-                        <sup id="cite_ref-3" className="reference">
-                            <a href="#cite_note-3">
-                                <span className="cite-bracket">[</span>3<span className="cite-bracket">]</span>
-                            </a>
-                        </sup>
-                    </li>
-                </ul>
-            </div>
-        </td>
-    </tr> */}
+		
+		 
 	</main>
   </>
   )

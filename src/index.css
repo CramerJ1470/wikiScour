@@ -32,7 +32,7 @@ padding:0.5rem;
 }
 
 .sectionTop {
-  height: 100vh;
+  height: 120vh;
   background-image: url(./assets/Campus_Panorama.jpg);
 }
 
@@ -54,8 +54,6 @@ button  {
   padding-right: 2vh;
   color: rgb(111, 26, 117);
 	background-color: transparent;
- 
-  
 }
 
 .dropdown-item {
@@ -84,20 +82,16 @@ button  {
 .flexbox1Elements2 {
   text-align: left;
   padding-top: 2vh;
- 
- }
+  }
 
  div.container {
   margin-left: 0%;
   margin-right: 0%;
-
- 
  }
 
  .wholeLoginPage {
   text-align: center;
-
- }
+}
 
  .wid33 {
   width: 33%;
@@ -134,7 +128,6 @@ text {
 }
 .body1 {
   width: 100%;
-
 }
 
 .textshadow {
