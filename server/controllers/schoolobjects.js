@@ -8,30 +8,46 @@ module.exports = {
 	},
 	post: (req, res, next) => {
 		const {
-			schoolName,
-			location,
-			control,
-			carnegieClassification,
-			enrollment,
-			founded,
-			schoolLink
+			schoolname,
+			Established,
+			President,
+			Religiousaffiliation,
+			Academicstaff,
+			Campus,
+			Website,
+			Type,
+			Dean,
+			Formername,
+			Motto,
+			Nickname,
+			Mascot,
+			Sportingaffiliations,
+			Location,
 		} = req.body;
 		const { _id } = req.user;
 
 		models.SchoolObject.create({
-			schoolName,
-			location,
-			control,
-			carnegieClassification,
-			enrollment,
-			founded,
-			schoolLink
+			schoolname,
+			Established,
+			President,
+			Religiousaffiliation,
+			Academicstaff,
+			Campus,
+			Website,
+			Type,
+			Dean,
+			Formername,
+			Motto,
+			Nickname,
+			Mascot,
+			Sportingaffiliations,
+			Location,
 		})
 			.then((createdSchoolObject) => {
 				return Promise.all([
 					models.SchoolObject.updateOne(
 						{ _id },
-						{ $push: { movies: createdSchoolObject } }
+						{ $push: { school: createdSchoolObject } }
 					),
 					models.SchoolObject.findOne({ _id: createdSchoolObject._id }),
 				]);

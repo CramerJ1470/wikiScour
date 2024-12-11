@@ -87,7 +87,7 @@ function NextPage() {
 			  let parser = new DOMParser();
 			  let html = parser.parseFromString(html_code, "text/html");
 			  var tables = html.querySelectorAll(".vcard");
-			  let list =tables[0].children[1].children
+			  let list =tables[0].children[1].children;
 			  console.log(list);
 			  let listHTML ='';
 			  console.log(list.length);

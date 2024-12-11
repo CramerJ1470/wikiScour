@@ -67,12 +67,14 @@ export const addSchoolObject = async (description) => {
 	const { id, token } = JSON.parse(localStorage.getItem("userData"));
 	const url = "http://localhost:8090/api/schoolobjects";
 	const body = JSON.stringify(description);
+	console.log("body: ",body);
 	const headers = {
 		"Content-Type": "application/json",
 		Authorization: `Bearer ${token}`,
 	};
 	const res = await fetch(url, { method: "POST", body, headers });
 	const result = await res.json();
+	console.log("added schoolobject");
 	return result;
 };
 
@@ -407,5 +409,5 @@ export const get_my_college_sections = async () => {
 					  this.founded= founded;
 					  this.schoolLink = schoolLink;
 			  
-				};
+				}
 				}		  

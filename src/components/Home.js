@@ -31,6 +31,30 @@ const Home = (schoolobjects) => {
 		navigate("/");
 	};
 
+
+	class SchoolObject {
+		constructor(school) {
+			this.schoolname = school.schoolname;
+			this.Established =school.Established;
+			this.President= school.President;
+			this.ReligiousAffiliation = school.Religiousaffiliation;
+			this.Academicstaff=school.Academicstaff;
+			this.Administrativestaff = school.Administrativestaff;
+			this.Campus=school.Campus;
+			this.Website=school.Website;
+			this.Type=school.Type;
+			this.Dean=school.Dean;
+			this.Formername=school.Formername;
+			this.Motto=school.Motto;
+			this.Nickname=school.Nickname;
+			this.Mascot=school.Mascot;
+			this.Sportingaffiliations=school.Sportingaffiliations;
+			this.Location=school.Location;
+			this.Students=school.Students;
+	  
+		}
+		}
+
 	let WikiCollegeListTitle = [];
 	const get_my_college_sections =async () =>{
 		
@@ -52,17 +76,18 @@ const Home = (schoolobjects) => {
 		 })
 	  
 		for (let ac= 0; ac< WikiCollegeListTitle.length; ac++) {
-		  let urlState = "https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page="+WikiCollegeListTitle[ac].split(`http://localhost:3000/wiki/`)[1]
+		  let urlState = "https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page="+WikiCollegeListTitle[ac].split(`http://localhost:3000/wiki/`)[1];
 		  get_table_in_state_page(urlState);
 		}
-	  }
+	  };
 	
 	  async function get_table_in_state_page(statePage) {
-		  
-		fetch(statePage)
+		  console.log(statePage);
+		await fetch(statePage)
 		.then(function(response) {
-		  return response.json();
-		})
+			return response.json();
+		  })
+		
 		.then(function(response){
 		  let html_code = response["parse"]["text"]["*"];
 		  let parser = new DOMParser();
@@ -71,75 +96,99 @@ const Home = (schoolobjects) => {
 		  let tbodyList = tbody.children;
 		  let schools = tbodyList;
 		  get_schools_from_state_page(schools) ;
-	  
-		}
-	  
-		)}
+		/*************************schools are the adresses of state pages***********************/
+	  });
+	 }
 	
 		let schoolObjectList = [];
-	
-		async function get_schools_from_state_page(schools){
+
+
+let schoolAddressList = [];
+	/*****************************get School Page address from state pages**********************/
+async function getHref(schoolsab) {
+		try {
+			let urlSchool =schoolsab.getElementsByTagName("a")[0].href;
+			let schoolAddress = "https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page="+urlSchool.split(`http://localhost:3000/wiki/`)[1];
+			console.log("schoolAddress:",schoolAddress);
+			schoolAddressList.push(schoolAddress);
+			get_my_data(schoolAddress);
 			
+		
+
+			}catch (e) {
+				// statements to handle any exceptions
+				console.log("no href for: ",schoolsab);
+			   }
+}
+async function get_schools_from_state_page(schools){
+			// console.log("schoolsList: ",schools);
+	
 			for (let ab = 1; ab< schools.length; ab++) {
-			let valueArray = []
-			for (let z = 0; z < schools[ab].children.length; z++)  {
-			  valueArray.push(schools[ab].children[z].innerText);}
-			let hrefSchoolFirst = schools[ab].children[0].firstChild.href;
-			if (hrefSchoolFirst ) {
-			  let hrefSchool = "https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page="+hrefSchoolFirst.split(`http://localhost:3000/wiki/`)[1] ;
-			  let newSchool = new SchoolObject(valueArray[0].trim(),valueArray[1].trim(),valueArray[2].trim(),valueArray[3].trim(),valueArray[4].trim(),valueArray[5].trim(),hrefSchool); schoolObjectList.push(newSchool);}
-			else {console.log(`no wiki page for : ${valueArray[0]}`);let newSchool = new SchoolObject(valueArray[0].trim(),valueArray[1].trim(),valueArray[2].trim(),valueArray[3].trim(),valueArray[4].trim(),      
-			  valueArray[5],""); schoolObjectList.push(newSchool);}
-		   
-		  
-		  }
-		  console.log("schoolObjectList:", schoolObjectList);
-		  for (let sol = 0; sol < schoolObjectList.length-10;sol++) {
-			addSchoolObject(schoolObjectList[sol]);
-		  }
-		  }
-		  let list = [];  
+				getHref(schools[ab]);
+	}
+}
+ let list = [];  
 	
-		  const get_my_data= async ()=> { 
-			
-		  
-		  
-			let urls = ['https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=Harvard%20University',"https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=St._Joseph's_University_(New_York)","https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=Michigan_State_University","https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=State_University_of_New_York_at_Stony_Brook"];
-			var url = 'https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=Harvard%20University';
-			var url1 = "https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=St._Joseph's_University_(New_York)";
-			var url2 = "https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=Michigan_State_University";
-		  
-		  for (let loop = 0; loop < urls.length;loop++){
-		  fetch(urls[loop])
+const get_my_data= async (url)=> { 
+				 
+		  fetch(url)
 			.then(function(response) {
 			  return response.json();
 			})
 			.then(function(response){
-			  let html_code = response["parse"]["text"]["*"];
+			  let html_code = response.parse.text["*"];
 			  let parser = new DOMParser();
 			  let html = parser.parseFromString(html_code, "text/html");
 			  var tables = html.querySelectorAll(".vcard");
+		
+			  console.log(tables[0].querySelectorAll("tbody")[0]);
+			//   let list = tables[0].querySelectorAll("tbody")[0].children;
+			//   console.log(list);
 			  let list =tables[0].children[1].children;
+			  console.log(list);
 			  let listHTML ='';
 			  console.log(list.length);
 			  let valueArray = [];
+			 
+			  
+
+
+			 ////****************************8for next loop to get items from tbody************** */
+			//   let descriptionPChildrenArray = Array.from(tables[0].children);
+			//   let textList = [];
+			//   let chidrenArrayLength = descriptionPChildrenArray.length; 
+			//   	  for (let aa = 0; aa< chidrenArrayLength;aa++) {textList.push(descriptionPChildrenArray[aa].innerText);textList.push(descriptionPChildrenArray[aa].nextSibling.nodeValue);}
+			//  let desPasragraph = textList.join("");
+			let newItem={};
+			 
+			
+			  
+			
+			  let schoolname1 = "schoolname";
+			
+			  
+			  let splitSchoolName = url.split("https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=")[1].replaceAll("_"," ");
+			  console.log(typeof splitSchoolName);
+			 
+			Object.defineProperty(newItem, "schoolname", {value: splitSchoolName});
+			  console.log("outside newItem: ",newItem);
 			  let keyArray = [];
 			  for (let z = 0; z < list.length; z++) {listHTML=listHTML+ list[z].innerHTML; console.log(list[z].childNodes[0].textContent ,": ",list[z].childNodes[1]);
-		  let listOfKeysLevel0= ["Established", "President","Religious affiliation","Academic staff","Campus"];
+		  let listOfKeysLevel0= ["Established", "President","Religious affiliation","Academic staff","Campus","Administrative staff"];
 		  let listOfKeysLevel1= ["Provost", "Website","Type","Dean"];
 		  let listOfKeysLevel2 = ["Former name","Motto","Nickname","Mascot"]; //more than one answer with a <br> between
 		  let listOfKeysLevel3 = ["Sporting affiliations"];
 		  
 		  //*********************items in 1st level of element ****************************//
-			  if (listOfKeysLevel0.includes(list[z].childNodes[0].textContent)) {console.log(list[z].childNodes[0].textContent,":",list[z].childNodes[0].nextSibling.textContent);let newItem={}; Object.defineProperty(newItem, list[z].childNodes[0].textContent, {value:list[z].childNodes[0].nextSibling.textContent});valueArray.push(newItem);}
+			  if (listOfKeysLevel0.includes(list[z].childNodes[0].textContent)) { Object.defineProperty(newItem, list[z].childNodes[0].textContent.replace(" ",''), {value:list[z].childNodes[0].nextSibling.textContent});}
 		  
 		  //*********************items in 1st level of element ****************************//
-		  if (listOfKeysLevel1.includes(list[z].childNodes[0].textContent)) {console.log(list[z].childNodes[0].textContent,":",list[z].children[1].innerText);let newItem={}; Object.defineProperty(newItem, list[z].childNodes[0].textContent, {value:list[z].children[1].innerText});valueArray.push(newItem);}
+		  if (listOfKeysLevel1.includes(list[z].childNodes[0].textContent)) { Object.defineProperty(newItem, list[z].childNodes[0].textContent, {value:list[z].children[1].innerText});}
 		  
-		  if (listOfKeysLevel2.includes(list[z].childNodes[0].textContent)) {let formerNames =list[z].childNodes[1].innerHTML.toString().split("<br>"); let newItem={}; Object.defineProperty(newItem, list[z].childNodes[0].textContent, {value:formerNames}); console.log(list[z].childNodes[0].textContent,":",formerNames); valueArray.push(newItem);}
+		  if (listOfKeysLevel2.includes(list[z].childNodes[0].textContent)) {let formerNames =list[z].childNodes[1].innerHTML.toString().split("<br>"); Object.defineProperty(newItem, list[z].childNodes[0].textContent.replace(" ",""), {value:formerNames});}
 		  
-		  if (listOfKeysLevel3.includes(list[z].childNodes[0].textContent)) {console.log(list[z].childNodes[0].nextSibling.children);let itemsArray = list[z].childNodes[0].nextSibling.children; console.log("itemsArray:",itemsArray); if (itemsArray.length > 1) {let itemsList = []; Array.from(itemsArray).forEach((loc) => {if (loc.localName === "a") {itemsList.push(loc.title); console.log(loc.title)}}) ; let innertextKey = list[z].childNodes[0].textContent; let innertextValue = itemsList; let newItem={}; Object.defineProperty(newItem, innertextKey, {value:innertextValue}); console.log(newItem); valueArray.push(newItem); } else {console.log(list[z].childNodes[0].children[0].title); 
-			   let innertextKey = list[z].childNodes[0].textContent; let innertextValue = list[z].childNodes[0].children[0].title; let newItem={}; Object.defineProperty(newItem, innertextKey, {value:innertextValue}); console.log(newItem); valueArray.push(newItem); }
+		  if (listOfKeysLevel3.includes(list[z].childNodes[0].textContent)) {console.log(list[z].childNodes[0].nextSibling.children);let itemsArray = list[z].childNodes[0].nextSibling.children; if (itemsArray.length > 1) {let itemsList = []; Array.from(itemsArray).forEach((loc) => {if (loc.localName === "a") {itemsList.push(loc.title);}}) ; let innertextKey = list[z].childNodes[0].textContent; let innertextValue = itemsList;  Object.defineProperty(newItem, innertextKey, {value:innertextValue});} else { 
+			   let innertextKey = list[z].childNodes[0].textContent; let innertextValue = list[z].childNodes[0].children[0].title; Object.defineProperty(newItem, innertextKey, {value:innertextValue}); }
 			}
 		  
 			
@@ -148,21 +197,61 @@ const Home = (schoolobjects) => {
 		  
 		  /// ****************************************       ***************************************//
 			  if (list[z].childNodes[0].textContent=== "Students" ) {let studentArray = list[z].nextSibling.textContent; console.log("studentArray:",studentArray); let       
-				innertextKey = list[z].childNodes[0].textContent; let innertextValue = list[z].childNodes[1].textContent; let newItem={}; Object.defineProperty(newItem, innertextKey, {value:studentArray}); console.log(newItem);  valueArray.push(newItem);}
+				innertextKey = list[z].childNodes[0].textContent; let innertextValue = list[z].childNodes[1].textContent;  Object.defineProperty(newItem, innertextKey, {value:studentArray});}
 		  
-			  if (list[z].childNodes[0].textContent=== "Location" ) {let locationArray = list[z].childNodes[0].nextSibling.firstChild.children; console.log("locationArray:", 
-				locationArray); if (locationArray.length > 1) {let locationList = []; Array.from(locationArray).forEach((loc) => {if (loc.localName === "a") {locationList.push(loc.title); console.log(loc.title)}}) ; let innertextKey = list[z].childNodes[0].textContent; let innertextValue = locationList; let newItem={}; Object.defineProperty(newItem, innertextKey, {value:innertextValue}); console.log(newItem); valueArray.push(newItem); } else {console.log(list[z].childNodes[0].nextSibling.firstChild.children[0].title); 
-			   let innertextKey = list[z].childNodes[0].textContent; let innertextValue = list[z].childNodes[0].nextSibling.firstChild.children[0].title; let newItem={}; Object.defineProperty(newItem, innertextKey, {value:innertextValue}); console.log(newItem); valueArray.push(newItem); }
+			  if (list[z].childNodes[0].textContent=== "Location" ) {let locationArray = list[z].childNodes[0].nextSibling.firstChild.children;  if (locationArray.length > 1) {let locationList = []; Array.from(locationArray).forEach((loc) => {if (loc.localName === "a") {locationList.push(loc.title); }}) ; let innertextKey = list[z].childNodes[0].textContent; let innertextValue = locationList;  Object.defineProperty(newItem, innertextKey, {value:innertextValue}); console.log(newItem); valueArray.push(newItem); } else {console.log(list[z].childNodes[0].nextSibling.firstChild.children[0].title); 
+			   let innertextKey = list[z].childNodes[0].textContent; let innertextValue = list[z].childNodes[0].nextSibling.firstChild.children[0].title;  Object.defineProperty(newItem, innertextKey, {value:innertextValue}); }
 			}
+			
+			
+		// 		// listHTML=listHTML+ list[z].innerHTML; 
+		//   let listOfKeysLevel0= ["Established", "President","Religious affiliation","Academic staff","Campus"];
+		//   let listOfKeysLevel1= ["Provost", "Website","Type","Dean"];
+		//   let listOfKeysLevel2 = ["Former name","Motto","Nickname","Mascot"]; //more than one answer with a <br> between
+		//   let listOfKeysLevel3 = ["Sporting affiliations"];
+		  
+		//   //*********************items in 1st level of element ****************************//
+		// 	  if (listOfKeysLevel0.includes(list[z].childNodes[0].textContent)) { Object.defineProperty(newItem, list[z].childNodes[0].textContent.replace(" ",""), {value:list[z].childNodes[0].nextSibling.textContent});}
+		  
+		//   //*********************items in 1st level of element ****************************//
+		//   if (listOfKeysLevel1.includes(list[z].childNodes[0].textContent)) {Object.defineProperty(newItem, list[z].childNodes[0].textContent.replace(" ",""), {value:list[z].children[1].innerText});}
+		  
+		//   if (listOfKeysLevel2.includes(list[z].childNodes[0].textContent)) {let formerNames =list[z].childNodes[1].innerHTML.toString().split("<br>");  Object.defineProperty(newItem, list[z].childNodes[0].textContent.replace(" ",""), {value:formerNames}); }
+		  
+		//   if (listOfKeysLevel3.includes(list[z].childNodes[0].textContent)) {let itemsArray = list[z].childNodes[0].nextSibling.children; if (itemsArray.length > 1) {let itemsList = []; Array.from(itemsArray).forEach((loc) => {if (loc.localName === "a") {itemsList.push(loc.title);}}); let innertextKey = list[z].childNodes[0].textContent; let innertextValue = itemsList; Object.defineProperty(newItem, innertextKey.replace(" ",""), {value:innertextValue});  } else {console.log(list[z].childNodes[0].children[0].title); 
+		// 	   let innertextKey = list[z].childNodes[0].textContent; let innertextValue = list[z].childNodes[0].children[0].title;  Object.defineProperty(newItem, innertextKey.replace(" ",""), {value:innertextValue}); }
+		// 	}
+		  
+			
+		  
+		  
+		  
+		//   /// ****************************************       ***************************************//
+		// 	  if (list[z].childNodes[0].textContent=== "Students" ) {let studentArray = list[z].nextSibling.textContent; let       
+		// 		innertextKey = list[z].childNodes[0].textContent; let innertextValue = list[z].childNodes[1].textContent;   Object.defineProperty(newItem, innertextKey, {value:studentArray});   }
+		  
+		// 	  if (list[z].childNodes[0].textContent=== "Location" ) {let locationArray =list[z].childNodes[0].nextSibling.firstChild.children; 
+		// 		 if (locationArray.length > 1) {let locationList = []; Array.from(locationArray).forEach((loc) => {if (loc.localName === "a") {locationList.push(loc.title);  }}); let innerKey = list[z].childNodes[0].textContent; let innertextValue = locationList;   Object.defineProperty(newItem, innerKey.replace(" ",""), {value:innertextValue});    } else {console.log(list[z].childNodes[0].nextSibling.firstChild.children[0].title); 
+		// 	   let innerKey = list[z].childNodes[0].textContent; let innertextValue = list[z].childNodes[0].nextSibling.firstChild.children[0].title;   Object.defineProperty(newItem, innerKey, {value:innertextValue});  }
+
+		// 	}
 			//   document.getElementById("display").innerHTML = listHTML;
-			 
-			  
-			}
-			console.log("valueArray:",valueArray);
-		  });
+			
+			
+		}
+		console.log("item: ", newItem);
+		let school = new SchoolObject(newItem) ;
+		newItem = {};
+		 addSchoolObject(school);
+		
+	});
+		
+			
+		
+		  };
 		  
 		  
-				}};
+				
 	
 				async function make_list_from_college_list(school) {
 					for (let aa = 0; aa < schoolObjectList.length; aa++) {
@@ -170,18 +259,7 @@ const Home = (schoolobjects) => {
 					}
 				  }
 	
-		class SchoolObject {
-					constructor(school, location,control, carnegieClassification,enrollment,founded,schoolLink) {
-						  this.schoolName =  school;
-						  this.location = location;
-						  this.control = control;
-						  this.carnegieClassification = carnegieClassification;
-						  this. enrollment = enrollment;
-						  this.founded= founded;
-						  this.schoolLink = schoolLink;
-				  
-					}
-					}
+	
 const samplePage = async() => {
 	setIsAuth(true);
 	navigate("/samplepage");

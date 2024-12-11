@@ -2,12 +2,12 @@ import React from 'react';
 
  function SchoolBoxOnSearch() {
 
-  let dummySchool = '{"_id":"67524a563650eeb549211c84","schoolName":"Holy Apostles College and Seminary","location":"Cromwell","control":"Private(Catholic)","carnegieClassification":"Masters university","enrollment":"719","founded":"1956","schoolLink":"https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=Holy_Apostles_College_and_Seminary"}';
+  let dummySchool = '{"_id":"67524a5c3650eeb549211f89","schoolName":"University of New Hampshire at Manchester","location":"Manchester","control":"Public","carnegieClassification":"Baccalaureate college[26]","enrollment":"1,959[26][27][28]","founded":"1985[29]","schoolLink":"https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=University_of_New_Hampshire_at_Manchester","__v":0}';
   let parser = new DOMParser();
   let dummySchoolJson = JSON.parse(dummySchool);
 console.log("dummySchoolJson:",dummySchoolJson.schoolLink);
 
-componentDidUpdate(prevProps, prevState) {
+
 let schoolPic = fetch(dummySchoolJson.schoolLink)
  
     .then(function(response) {
@@ -34,7 +34,7 @@ let schoolPic = fetch(dummySchoolJson.schoolLink)
    
   return schoolPic1;
   });
-}
+
 const {schoolName,location,control,carnegieClassification,enrollement,founded,schoolLink} = dummySchoolJson;
 console.log(schoolName,location,control,carnegieClassification,enrollement,founded,schoolLink);
 async function setSchoolPic() {
