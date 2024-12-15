@@ -50,6 +50,7 @@ console.log("schoolPic: ",schoolPic);
 
 
   return (
+    <>
     <div>
               <div className="col">
             <div className="MuiPaper-root MuiCard-root jss75 MuiPaper-elevation1 MuiPaper-rounded">
@@ -91,6 +92,7 @@ console.log("schoolPic: ",schoolPic);
             </div>
         </div>
     </div>
+    </>
   )
 }
 

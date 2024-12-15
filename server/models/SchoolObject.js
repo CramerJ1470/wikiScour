@@ -4,13 +4,10 @@ const Model = mongoose.model;
 const { String} = Schema.Types;
 
 const schoolObjectSchema = new Schema({
-	schoolname: [{
-		type: Array,
-		required: false,
-	},{type: String,
-	required: false,
-},
-],
+	schoolname: {
+		type: String,
+		required: true,
+	},
 	Established:{
 		type: String,
 		required: false,
@@ -23,20 +20,14 @@ const schoolObjectSchema = new Schema({
 		type: String,
 		required: false,
 	},
-	Academicstaff:[{
-		type: Array,
+	Academicstaff:{
+		type: String,
 		required: false,
-	},{type: String,
-	required: false,
-},
-],
-	Campus:[{
-		type: Array,
+	},
+	Campus:{
+		type: String,
 		required: false,
-	},{type: String,
-	required: false,
-},
-],
+	},
 	Website:{
 		type: String,
 		required: false,
@@ -45,58 +36,98 @@ const schoolObjectSchema = new Schema({
 		type: String,
 		required: false,
 	},
-	Dean:[{
-		type: Array,
+	Dean:{
+		type: String,
 		required: false,
-	},{type: String,
-	required: false,
-},
-],
-	Formername:[{
-		type: Array,
+	},
+	Formername:{
+		type: String,
 		required: false,
-	},{type: String,
-	required: false,
-},
-],
-	Motto:[{
-		type: Array,
+	},
+	Motto:{
+		type: String,
 		required: false,
-	},{type: String,
-	required: false,
-},
-],
-	Nickname:[{
-		type: Array,
+	},
+	Nickname:{
+		type: String,
 		required: false,
-	},{type: String,
-	required: false,
-},
-],
-	Mascot:[{
-		type: Array,
+	},
+	Mascot:{
+		type: String,
 		required: false,
-	},{type: String,
-	required: false,
-},
-],
-	Sportingaffiliations:[{
-		type: Array,
+	},
+	Sportingaffiliations:{
+		type: String,
 		required: false,
-	},{type: String,
-	required: false,
-},
-],
-	Location: [{
-		type: Array,
+	},
+	Location: 
+	{type: String,
 		required: false,
-	},{type: String,
-	required: false,
-},
-],
+	},
 	Students:{
-	type: Array,
-	required: false,
-},
+		type: String,
+		required: false,
+	},
+	Provost: {
+		type: String,
+		required: false,
+	},
+	Undergraduates: {
+		type: String,
+		required: false,
+	},
+	Postgraduates :{
+		type: String,
+		required: false,
+	},
+	Colors: {
+		type: String,
+		required: false,
+	},
+	Endowements: {
+		type: String,
+		required: false,
+	},
+	Chancellor: {
+		type: String,
+		required: false,
+	},
+	Parentinstitution: {
+		type: String,
+		required: false,
+	},
+	Mottoinenglish :{
+		type: String,
+		required: false,
+	},
+	Newspaper: {
+		type: String,
+		required: false,
+	},
+	WSJCollegePulse: {type: String,
+		required: false,
+	},
+	WashingtonMontly: {
+		type: String,
+		required: false,
+	},
+	Othername: {type: String,
+		required: false,
+	},
+	Formernames: {type: String,
+		required: false,
+	},
+	Admitrate: {type: String,
+		required: false,
+	},
+	SATTotal: {type: String,
+		required: false,
+	},
+	ACTComposite: {type: String,
+		required: false,
+	},
+	HighschoolGPAAverage: {type: String,
+		required: false,
+	},
 });
 module.exports = new Model("SchoolObject", schoolObjectSchema);

@@ -23,6 +23,23 @@ module.exports = {
 			Mascot,
 			Sportingaffiliations,
 			Location,
+			Provost,
+			Undergraduates,
+			Postgraduates,
+			Colors,
+			Endowements,
+			Chancellor,
+			Parentinstitution,
+			Mottoinenglish,
+			Newspaper,
+			WSJCollegePulse,
+			WashingtonMontly,
+			Othername,
+			Formernames,
+			Admitrate,
+			SATTotal,
+			ACTComposite,
+			HighschoolGPAAverage
 		} = req.body;
 		const { _id } = req.user;
 
@@ -42,6 +59,23 @@ module.exports = {
 			Mascot,
 			Sportingaffiliations,
 			Location,
+			Provost,
+			Undergraduates,
+			Postgraduates,
+			Colors,
+			Endowements,
+			Chancellor,
+			Parentinstitution,
+			Mottoinenglish,
+			Newspaper,
+			WSJCollegePulse,
+			WashingtonMontly,
+			Othername,
+			Formernames,
+			Admitrate,
+			SATTotal,
+			ACTComposite,
+			HighschoolGPAAverage
 		})
 			.then((createdSchoolObject) => {
 				return Promise.all([
