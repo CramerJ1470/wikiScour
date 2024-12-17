@@ -24,13 +24,14 @@ module.exports = {
 			Sportingaffiliations,
 			Location,
 			Provost,
+			Students,
 			Undergraduates,
 			Postgraduates,
 			Colors,
 			Endowements,
 			Chancellor,
 			Parentinstitution,
-			Mottoinenglish,
+			MottoinEnglish,
 			Newspaper,
 			WSJCollegePulse,
 			WashingtonMontly,
@@ -39,7 +40,14 @@ module.exports = {
 			Admitrate,
 			SATTotal,
 			ACTComposite,
-			HighschoolGPAAverage
+			HighschoolGPAAverage,
+			Academicaffiliations,
+			Accreditation,
+			Forbes,
+			Founder,
+			schoolWikiPage
+
+			
 		} = req.body;
 		const { _id } = req.user;
 
@@ -55,18 +63,19 @@ module.exports = {
 			Dean,
 			Formername,
 			Motto,
+			MottoinEnglish,
 			Nickname,
 			Mascot,
 			Sportingaffiliations,
 			Location,
 			Provost,
+			Students,
 			Undergraduates,
 			Postgraduates,
 			Colors,
 			Endowements,
 			Chancellor,
 			Parentinstitution,
-			Mottoinenglish,
 			Newspaper,
 			WSJCollegePulse,
 			WashingtonMontly,
@@ -75,7 +84,12 @@ module.exports = {
 			Admitrate,
 			SATTotal,
 			ACTComposite,
-			HighschoolGPAAverage
+			HighschoolGPAAverage,
+			Academicaffiliations,
+			Accreditation,
+			Forbes,
+			Founder,
+			schoolWikiPage
 		})
 			.then((createdSchoolObject) => {
 				return Promise.all([

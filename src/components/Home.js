@@ -61,6 +61,15 @@ const Home = (schoolobjects) => {
 			this.SATTotal=school.SATTotal;	
 			this.ACTComposite=school.ACTComposite;
 			this.HighschoolGPAAverage=school.HighschoolGPAAverage;
+			this.Academicaffiliations = school.Academicaffiliations;
+			this.Accreditation= school.Accreditation;
+			this.Forbes=school.Forbes;
+			this.Founder=school.Founder;
+			this.MottoinEnglish=school.MottoinEnglish;
+			this.Newspaper=school.Newspaper;
+			this.schoolWikiPage= school.schoolWikiPage;
+
+
 
 	  
 		}
@@ -71,7 +80,7 @@ const Home = (schoolobjects) => {
 		  
 		console.log("running wikiCollegeListTitle");
 	  
-		await fetch("https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=Lists_of_American_universities_and_colleges")
+		await  fetch("https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=Index_of_colleges_and_universities_in_the_United_States")
 		.then(function(response) {
 		  return response.json();
 		})
@@ -79,17 +88,39 @@ const Home = (schoolobjects) => {
 		  let html_code = response['parse']['text']["*"];
 		  let parser = new DOMParser();
 		  let html = parser.parseFromString(html_code, "text/html");
-		  let headings = html.getElementsByClassName("mw-heading2");
+		  let list = html.getElementsByClassName("mw-heading mw-heading2");console.log(list);
+		  
+		  for (let aa = 0; aa< list.length-1; aa++) {
+				let newItemList =list[aa].nextSibling.nextSibling.nextSibling.children[0].children;
+			console.log(newItemList);
+				   for (let bb = 0; bb <newItemList.length; bb++) { 
+					console.log("newItemList[bb];",newItemList[bb].firstChild.href);
+					if (newItemList[bb].firstChild.href !== undefined) {console.log(bb); WikiCollegeListTitle.push(newItemList[bb].firstChild.href);}
+				}
+		  }
 		   
-		  for (let x = 0; x < 4; x++) 
-			{let childLength = headings[x].nextElementSibling.nextElementSibling.children.length;   for (let j = 0; j <childLength; j++) {WikiCollegeListTitle.push(headings[x].nextElementSibling.nextElementSibling.children[j].firstChild.href)}};
-		 })
+		});
 	  
 		for (let ac= 0; ac< WikiCollegeListTitle.length; ac++) {
-		  let urlState = "https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page="+WikiCollegeListTitle[ac].split(`http://localhost:3000/wiki/`)[1];
-		  get_table_in_state_page(urlState);
+			let schoolsab = WikiCollegeListTitle[ac];
+			if (schoolsab !== undefined) {
+				try {
+			
+					let schoolAddress = "https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page="+schoolsab.split(`http://localhost:3000/wiki/`)[1];
+					console.log("schoolAddress:",schoolAddress);
+					schoolAddressList.push(schoolAddress);
+					get_my_data(schoolAddress);
+					
+				
+		
+					}catch (e) {
+						// statements to handle any exceptions
+						console.log("no href for: ",schoolsab);
+					   }
+
 		}
-	  };
+	  }
+	};
 	
 	  async function get_table_in_state_page(statePage) {
 		  console.log(statePage);
@@ -117,8 +148,8 @@ let schoolAddressList = [];
 	/*****************************get School Page address from state pages**********************/
 async function getHref(schoolsab) {
 		try {
-			let urlSchool =schoolsab.getElementsByTagName("a")[0].href;
-			let schoolAddress = "https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page="+urlSchool.split(`http://localhost:3000/wiki/`)[1];
+			
+			let schoolAddress = "https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page="+schoolsab.split(`http://localhost:3000/wiki/`)[1];
 			console.log("schoolAddress:",schoolAddress);
 			schoolAddressList.push(schoolAddress);
 			get_my_data(schoolAddress);
@@ -130,18 +161,21 @@ async function getHref(schoolsab) {
 				console.log("no href for: ",schoolsab);
 			   }
 }
+let schoolNumber =0;
 async function get_schools_from_state_page(schools){
 			// console.log("schoolsList: ",schools);
 	
 			for (let ab = 1; ab< schools.length; ab++) {
 				getHref(schools[ab]);
+				schoolNumber++;
+				console.log("schoolNumber:",schoolNumber);
 	}
 	document.getElementById("collegesInfoButton").style.display= "none";
 }
  let list = [];  
 	let number = 0;
 const get_my_data= async (url)=> { 
-				 
+	try {		 
 		  fetch(url)
 			.then(function(response) {
 			  return response.json();
@@ -157,7 +191,9 @@ const get_my_data= async (url)=> {
 			  
 			  let splitSchoolName = url.split("https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=")[1].replaceAll("_"," ");
 			  Object.defineProperty(newItem,"schoolname", {value: splitSchoolName});
-			  for (let x = 0; x < tables.length;x++) {let newKey = tables[x].textContent.replaceAll(" ","").replaceAll("/","").replaceAll(".",""); let newValue = ""; if (newItem.hasOwnProperty(newKey)) {console.log("hasOwnProperty");let oldValue = newItem[newKey] +","+ tables[x].nextSibling.textContent.split(".mw")[0]; newItem[newKey]= oldValue;} else {let newValue = tables[x].nextSibling.textContent.split(".mw")[0]; Object.defineProperty(newItem, newKey, {value:newValue});}}
+			  for (let x = 0; x < tables.length;x++) 
+			  
+			{let newKey = tables[x].textContent.replaceAll(" ","").replaceAll("/","").replaceAll(".",""); let newValue = ""; if (newItem.hasOwnProperty(newKey)) {console.log("hasOwnProperty");let oldValue = newItem[newKey] +","+ tables[x].nextSibling.textContent.split(".mw")[0]; newItem[newKey]= oldValue;} else {let newValue = tables[x].nextSibling.textContent.split(".mw")[0]; Object.defineProperty(newItem, newKey, {value:newValue});}}
 			  console.log("item: ", newItem);
 			  let school = new SchoolObject(newItem) ;
 			  
@@ -165,16 +201,24 @@ const get_my_data= async (url)=> {
 			  newItem = {};
 			  console.log("Number:",number);
 			  number++;
+			}
+		);
+	}
+		 catch (e) {
+			// statements to handle any exceptions
+			let splitSchoolName = url.split("https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=")[1].replaceAll("_"," ");
+			console.log("school :",splitSchoolName ," not added");
+		 }
 			  
 
 			   
 			  
-		  });
+		  };
 
 	async function postSchoolObject(school) {let res = await addSchoolObject(school);console.log("res: ",res._id);}
 			
 		
-		  };
+		 
 		  
 		  
 				
@@ -198,8 +242,29 @@ const samplePage = async() => {
 	 
 	  
 		async function horsey() {console.log("horsey");}
-
-
+		async function get_index_list() {
+			await  fetch("https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=Index_of_colleges_and_universities_in_the_United_States")
+			.then(function(response) {
+			  return response.json();
+			})
+			.then(function(response){
+			  let html_code = response['parse']['text']["*"];
+			  let parser = new DOMParser();
+			  let html = parser.parseFromString(html_code, "text/html");
+			  let list = html.getElementsByClassName("mw-heading mw-heading2");
+			  let listArr = []; 
+			  let listFromArr = [];
+			  for (let aa = 0; aa< list.length; aa++) {
+					let newItemList =list[aa].nextElementSibling.nextElementSibling.children; 
+					console.log("newItemList: ".newItemList);
+			   		// for (let bb = 0; newItemList.length; bb++) { 
+					// 	if (bb%2 == 0) {console.log(bb); listFromArr.push(newItemList[bb]);}
+					// }
+			  }
+			  console.log("listFromArr: ",listFromArr);  
+			});
+		}
+	
   return (
     <>
 	
