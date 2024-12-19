@@ -3,9 +3,9 @@ const router = require("express").Router();
 const bodyParser = require("body-parser");
 const { auth } = require("../utils");
 
-router.get("/", controllers.schoolobjects.get);
+router.get("/", controllers.schoolobjects2.get);
 
-router.post("/", auth(), controllers.schoolobjects.post);
+router.post("/", auth(), controllers.schoolobjects2.post);
 
 // router.put("/:id", auth(), controllers.movie.put);
 

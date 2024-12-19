@@ -1,47 +1,57 @@
 import React from 'react';
 
- function SchoolBoxOnSearch() {
+ function SchoolBoxOnSearch({schoolObject}) {
 
-  let dummySchool = '{"_id":"67524a5c3650eeb549211f89","schoolName":"University of New Hampshire at Manchester","location":"Manchester","control":"Public","carnegieClassification":"Baccalaureate college[26]","enrollment":"1,959[26][27][28]","founded":"1985[29]","schoolLink":"https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=University_of_New_Hampshire_at_Manchester","__v":0}';
-  let parser = new DOMParser();
-  let dummySchoolJson = JSON.parse(dummySchool);
-console.log("dummySchoolJson:",dummySchoolJson.schoolLink);
-
-
-let schoolPic = fetch(dummySchoolJson.schoolLink)
  
-    .then(function(response) {
-    console.log("Response: ",response);    
-    return  response.json();
 
-  })
-  .then(function(response){
-    let html_code = response.parse.text["*"];
-    let parser = new DOMParser();
-    let html = parser.parseFromString(html_code, "text/html");
-    
-    let getCollegePictures = html.getElementsByClassName("mw-file-description");
-    
-    let hrefarray = [] ;for (let a =0 ; a < getCollegePictures.length; a++) {
-    let imageI = getCollegePictures[a].children[0].src; console.log("imageI: ",imageI); hrefarray.push(getCollegePictures[a].children[0].src);}
-    
-    let hrefArrayLength=hrefarray.length;
-   
-    let schoolPicRanNum = Math.floor(Math.random()*hrefArrayLength);
-  
+const {schoolname,
+    Established,
+    President,
+    Religiousaffiliation,
+    Academicstaff,
+    Campus,
+    Website,
+    Type,
+    Dean,
+    Formername,
+    Motto,
+    MottoinEnglish,
+    Nickname,
+    Mascot,
+    Sportingaffiliations,
+    Location,
+    Provost,
+    Students,
+    Undergraduates,
+    Postgraduates,
+    Colors,
+    Endowements,
+    Chancellor,
+    Parentinstitution,
+    Newspaper,
+    WSJCollegePulse,
+    WashingtonMontly,
+    Othername,
+    Formernames,
+    Admitrate,
+    SATTotal,
+    ACTComposite,
+    HighschoolGPAAverage,
+    Academicaffiliations,
+    Accreditation,
+    Forbes,
+    Founder,
+    schoolWikiPage,
+    schoolImages,
+    paragraphs,
+    USNewsWorldReport} = schoolObject;
 
-    let schoolPic1 = hrefarray[schoolPicRanNum];
-   
-  return schoolPic1;
-  });
 
-const {schoolName,location,control,carnegieClassification,enrollement,founded,schoolLink} = dummySchoolJson;
-console.log(schoolName,location,control,carnegieClassification,enrollement,founded,schoolLink);
-async function setSchoolPic() {
-    
-schoolPic = {
-    backgroundImage:`url(${schoolPic})`};
-  }
+    let schoolPicRandom = Math.floor(Math.random()*schoolImages.length);
+
+let schoolPic = {
+    backgroundImage:`url(${schoolImages[schoolPicRandom]})`};
+ 
 
 console.log("schoolPic: ",schoolPic);
 
@@ -56,14 +66,14 @@ console.log("schoolPic: ",schoolPic);
             <div className="MuiPaper-root MuiCard-root jss75 MuiPaper-elevation1 MuiPaper-rounded">
                 <div className="MuiCardHeader-root jss76">
                     <div className="MuiCardHeader-content">
-                        <span className="MuiTypography-root MuiCardHeader-title MuiTypography-h5 MuiTypography-displayBlock">{schoolName}</span>
-                        <span className="MuiTypography-root MuiCardHeader-subheader MuiTypography-body1 MuiTypography-colorTextSecondary MuiTypography-displayBlock">{location}</span>
+                        <span className="MuiTypography-root MuiCardHeader-title MuiTypography-h5 MuiTypography-displayBlock">{schoolname}</span>
+                        <span className="MuiTypography-root MuiCardHeader-subheader MuiTypography-body1 MuiTypography-colorTextSecondary MuiTypography-displayBlock">{Location}</span>
                     </div>
                 </div>
                 <div className="MuiCardMedia-root jss78" style={schoolPic}>
                 // </div>
                 <div className="MuiCardContent-root">
-                    <div className="jss77">Harvard University is a private Ivy League research university in Cambridge, Massachusetts, established in 1636, whose history, influence, and wealth have made it one of the world's most prestigious universities.
+                    <div className="jss77">{paragraphs}
                         <sup>
                             <sup>
                                 {/* <a href={}>[source]</a> */}

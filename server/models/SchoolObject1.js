@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const Model = mongoose.model;
 const { String} = Schema.Types;
 
-const schoolObjectSchema = new Schema({
+const schoolObject1Schema = new Schema({
 	schoolname: {
 		type: String,
 		required: true,
@@ -152,7 +152,5 @@ const schoolObjectSchema = new Schema({
 	USNewsWorldReport: {type: String,
 		required: false,
 	},
-
-
 });
-module.exports = new Model("SchoolObject", schoolObjectSchema);
+module.exports = new Model("SchoolObject1", schoolObject1Schema);

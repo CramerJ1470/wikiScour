@@ -2,8 +2,8 @@ const models = require("../models");
 
 module.exports = {
 	get: (req, res, next) => {
-		models.SchoolObject.find()
-			.then((schoolobject) => res.send(schoolobject))
+		models.SchoolObject1.find()
+			.then((schoolobject1) => res.send(schoolobject1))
 			.catch(next);
 	},
 	post: (req, res, next) => {
@@ -48,13 +48,13 @@ module.exports = {
 			schoolWikiPage,
 			schoolImages,
 			paragraphs,
-			USNewsWorldReport
+            USNewsWorldReport
 
 			
 		} = req.body;
 		const { _id } = req.user;
 
-		models.SchoolObject.create({
+		models.SchoolObject1.create({
 			schoolname,
 			Established,
 			President,
@@ -95,19 +95,20 @@ module.exports = {
 			schoolWikiPage,
 			schoolImages,
 			paragraphs,
-			USNewsWorldReport
+            USNewsWorldReport
+
 		})
-			.then((createdSchoolObject) => {
+			.then((createdSchoolObject1) => {
 				return Promise.all([
-					models.SchoolObject.updateOne(
+					models.SchoolObject1.updateOne(
 						{ _id },
-						{ $push: { school: createdSchoolObject } }
+						{ $push: { school: createdSchoolObject1 } }
 					),
-					models.SchoolObject.findOne({ _id: createdSchoolObject._id }),
+					models.SchoolObject1.findOne({ _id: createdSchoolObject1._id }),
 				]);
 			})
-			.then(([modifiedObj, schoolObjectObj]) => {
-				res.send(schoolObjectObj);
+			.then(([modifiedObj1, schoolObjectObj1]) => {
+				res.send(schoolObjectObj1);
 			})
 			.catch(next);
 	},

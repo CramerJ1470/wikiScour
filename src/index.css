@@ -273,3 +273,8 @@ text {
 .mw-parser-output .legend-text{ background-image: url("");
 
 }
+
+.height100 {
+  display: block;
+  
+}

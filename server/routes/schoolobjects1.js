@@ -1,11 +1,10 @@
 const controllers = require("../controllers");
 const router = require("express").Router();
-const bodyParser = require("body-parser");
 const { auth } = require("../utils");
 
-router.get("/", controllers.schoolobjects.get);
+router.get("/", controllers.schoolobjects1.get);
 
-router.post("/", auth(), controllers.schoolobjects.post);
+router.post("/", auth(), controllers.schoolobjects1.post);
 
 // router.put("/:id", auth(), controllers.movie.put);
 

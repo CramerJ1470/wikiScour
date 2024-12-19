@@ -63,7 +63,24 @@ export const getSchoolObjects = async (applyFunc) => {
 	});
 };
 
-export const addSchoolObject = async (description) => {
+export const getSchoolObjects1 = async (applyFunc) => {
+	const url = "http://localhost:8090/api/schoolobjects1";
+	const res = await fetch(url);
+	res.json().then((schoolobjects1) => {
+		applyFunc([...schoolobjects1]);
+	});
+};
+
+
+export const getSchoolObjects2 = async (applyFunc) => {
+	const url = "http://localhost:8090/api/schoolobjects2";
+	const res = await fetch(url);
+	res.json().then((schoolobjects2) => {
+		applyFunc([...schoolobjects2]);
+	});
+};
+export const addSchoolObject = async (description,number) => {
+	console.log("inside:",number);
 	const { id, token } = JSON.parse(localStorage.getItem("userData"));
 	const url = "http://localhost:8090/api/schoolobjects";
 	const body = JSON.stringify(description);
@@ -78,6 +95,38 @@ export const addSchoolObject = async (description) => {
 	return result;
 };
 
+
+export const addSchoolObject1 = async (description,number) => {
+	console.log("inside 1:",number);
+	const { id, token } = JSON.parse(localStorage.getItem("userData"));
+	const url = "http://localhost:8090/api/schoolobjects1";
+	const body = JSON.stringify(description);
+	console.log("body: ",body);
+	const headers = {
+		"Content-Type": "application/json",
+		Authorization: `Bearer ${token}`,
+	};
+	const res = await fetch(url, { method: "POST", body, headers });
+	const result = await res.json();
+	console.log("added schoolobject1");
+	return result;
+};
+
+export const addSchoolObject2 = async (description,number) => {
+	console.log("inside 2:",number);
+	const { id, token } = JSON.parse(localStorage.getItem("userData"));
+	const url = "http://localhost:8090/api/schoolobjects2";
+	const body = JSON.stringify(description);
+	console.log("body: ",body);
+	const headers = {
+		"Content-Type": "application/json",
+		Authorization: `Bearer ${token}`,
+	};
+	const res = await fetch(url, { method: "POST", body, headers });
+	const result = await res.json();
+	console.log("added schoolobject2");
+	return result;
+};
 /**********************Cart Section****************************/
 
 // export const getCarts = async (applyFunc) => {
