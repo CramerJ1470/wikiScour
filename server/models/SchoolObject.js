@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Model = mongoose.model;
-const { String} = Schema.Types;
+const { String,Array } = Schema.Types;
 
 const schoolObjectSchema = new Schema({
 	schoolname: {

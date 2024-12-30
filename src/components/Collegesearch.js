@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Collegesearch() {
+function Collegesearch(school) {
 
 
 

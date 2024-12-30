@@ -278,3 +278,25 @@ text {
   display: block;
   
 }
+
+.labelWhite {
+  
+  color:white;
+
+  fill: rgb(91, 111, 219);
+  text-shadow: 2px 7px 7px black;
+  text-decoration:double ;
+  text-decoration-color: black;
+  font-size: 40px;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.datafont {
+  font-size: 18px;
+}
+
+.lefttab {
+  padding-left: 10%;
+}

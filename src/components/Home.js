@@ -8,8 +8,9 @@ import DropdownLeft from "./DropdownLeft";
 import Navigation from "./Navigation";
 import Collegesearch from "./Collegesearch";
 import SchoolBoxOnSearch from "./schoolBoxOnSearch";
+import SchoolSearch from "./SchoolSearch";
 
-import {addSchoolObject ,addSchoolObject1,addSchoolObject2} from "../services";
+import {addSchoolObject } from "../services";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
@@ -17,7 +18,7 @@ import { logout } from "../services";
 
 		  
 
-const Home = ({schoolobjects,schoolobjects1,schoolobjects2}) => {	
+const Home = ({schoolobjects}) => {	
 	const navigate = useNavigate();
 	const { setIsAuth, isAuth } = useContext(AuthContext);
 
@@ -271,26 +272,54 @@ const get_my_data= async (url)=> {
 			console.log("error:",e);
 		}
 			  console.log("item: ", newItem);
-//*********************************GET Paragraphs***************************/
-			let newItems1="";
+
+	
+
+/*********************************GET Paragraphs***********************************************/
+
+		/**** set initial string for all paragraphs to be added to ****/
+			let newItems1 ="";
+		//****  set string variable ****/	
 			let newP = "";
+		//****  gets all paragraph items from html which is parsed html_code ****/	
 			  var tables2 = html.getElementsByTagName("p"); 
 			  for (let x = 0; x < tables2.length;x++) {
-				newP = tables2[x].innerText.replace(/\D\d+\D/gm, '').split(".mw")[0]; 
-				newItems1= newItems1+ " " + newP;}
-				console.log(newP);
-			  Object.defineProperty(newItem, "paragraphs", {value:newP});
-/********************************88Get Images ******************************/
 
-			  let getCollegePictures = html.getElementsByClassName("mw-file-description");
-    
-    		let hrefarray = [] ;for (let a =0 ; a < getCollegePictures.length; a++) {
-    		let imageI = getCollegePictures[a].children[0].src; hrefarray.push(getCollegePictures[a].children[0].src);}
+		/**** use regex to get rid of reference tags ie. [5] ****/		
+				newP = tables2[x].innerText.replace(/\D\d+\D/gm, '').split(".mw")[0]; 
+
+		/**** add paragraph to all paragrahs in string form ****/
+		/**** note* strings from page as innerText incliuded \n breaks ****/		
+				newItems1= newItems1+ " " + newP;}
+		/**** create the property for newItem which is our school and adding a value to it ****/		
+			Object.defineProperty(newItem, "paragraphs", {value:newP});
+
+			
+/********************************Get Images ******************************/
+
+		/**** get all elements with description which has images in it for this page ****/		
+			let getCollegePictures = html.getElementsByClassName("mw-file-description");
+
+		/**** create empty array to push too for href (image addresses) ****/		
+    		let hrefarray = [];
+
+		/*** loop though getCollegPistures array ****/	
+			for (let a =0 ; a < getCollegePictures.length; a++) {
+
+		/**** find href element in <img> tags as src properties ****/		
+    		let imageI = getCollegePictures[a].children[0].src; 
+		/**** push to array of images ****/	
+			hrefarray.push(getCollegePictures[a].children[0].src);
+		}
+		/**** create the property for newItem which is our school and adding a value to it ****/
 			Object.defineProperty(newItem, "schoolImages", {value:hrefarray});
+			
 			let school = new SchoolObject(newItem) ;
 			 
 			  postSchoolObject(school,number);
 			  newItem = {};
+
+
 			  console.log("Number:",number);
 			  number++;
 		
@@ -306,7 +335,7 @@ const get_my_data= async (url)=> {
 		 }
 			  
 
-			   
+		 window.onload = () => console.log('Script loaded!');	   
 			  
 		  };
 
@@ -315,6 +344,7 @@ const get_my_data= async (url)=> {
 		// if (number <= 999) {
 		let res = await addSchoolObject(school,number); 
 		console.log("res: ",res._id);
+
 	// }
 			
 	// else if ( number > 999 && number <= 1999) {
@@ -367,7 +397,7 @@ const samplePage = async() => {
 			  console.log("listFromArr: ",listFromArr);  
 			});
 		}
-	
+		window.onload = () => console.log('Script loaded!');
   return (
     <>
 	
@@ -441,10 +471,12 @@ const samplePage = async() => {
 			
 
 		</div>
-		<SchoolBoxOnSearch schoolObject={decipheredSchool} />
+		<div><SchoolSearch schoolobjects={schoolobjects} isAuth={isAuth}/></div>
+		{/* <SchoolBoxOnSearch schoolObject={decipheredSchool} /> */}
 		<div style={{height:"80%"}}>
 		<Collegesearch/>
 		</div>
+
         </div> 
 		
 		
